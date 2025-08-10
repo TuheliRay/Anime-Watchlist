@@ -21,6 +21,3 @@ A simple web application that allows users to create and manage their own person
 - React 
 - Tailwind CSS
 
-## License
-
-MIT License
