@@ -1,12 +1,26 @@
-# React + Vite
+# Personal Anime List App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple web application that allows users to create and manage their own personal anime watchlists.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Add anime titles to your personal list
+- Remove anime from your list
+- Clean and intuitive user interface
+- Designed to be lightweight and user-friendly
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repository
+2. Open the project in your preferred code editor
+3. Run the app locally or deploy it to your preferred hosting platform
+4. Start adding anime to your personal list!
+
+## Technologies Used
+
+- React 
+- Tailwind CSS
+
+## License
+
+MIT License
