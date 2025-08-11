@@ -2,7 +2,7 @@ import  { useState } from "react";
 import { useContext , useEffect } from "react";
 import AnimeContext from "./AnimeContext";
 
-export default function AddAnimeForm({scrollToList}) {
+export default function AddAnimeForm() {
   const { addAnimeToList, prefillData, setPrefillData } = useContext(AnimeContext);
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
@@ -27,7 +27,6 @@ export default function AddAnimeForm({scrollToList}) {
       genre: genre.trim(),
       status,
     });
-    scrollToList()
   
 
     // clear form & prefill
@@ -38,7 +37,7 @@ export default function AddAnimeForm({scrollToList}) {
   }
 
   return (
-    <section className="mt-8">
+    <section className="mt-8 px-4 sm:px-0">
       <div className="bg-[#1f2832] rounded-2xl p-4 pb-7 shadow-lg max-w-7xl mx-auto mb-10">
         <h3 className="text-2xl text-pink-300 font-semibold mb-4">
           Add New Anime

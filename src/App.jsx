@@ -16,6 +16,7 @@ export default function App() {
     listsRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   const [prefillData, setPrefillData] = useState(null);
+  const [justAdded, setJustAdded] = useState(false);
   const [personalList, setPersonalList] = useState(() => {
     try {
       const raw = localStorage.getItem("anime_personal_list");
@@ -28,6 +29,12 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("anime_personal_list", JSON.stringify(personalList));
   }, [personalList]);
+  useEffect(() => {
+    if (justAdded) {
+      scrollToList();
+      setJustAdded(false); 
+    }
+  }, [personalList, justAdded]);
 
   const addAnimeToList = (anime) => {
     setPersonalList((prev) => {
@@ -37,6 +44,7 @@ export default function App() {
         [anime.status]: [newAnimeWithTimestamp, ...prev[anime.status]],
       };
     });
+    setJustAdded(true);
   };
   const removeAnimeFromList = (status, id) => {
   setPersonalList((prev) => ({
