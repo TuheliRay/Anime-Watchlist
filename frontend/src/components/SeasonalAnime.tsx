@@ -32,7 +32,7 @@ export default function SeasonalAnime({scrollToForm} : Scroll) {
     const fetchSeasonalAnime = async () => {
       try {
         const response = await axios.get(
-          `https://api.jikan.moe/v4/seasons/${year}/${season}`
+          `${import.meta.env.VITE_JIKAN_API_URL}/seasons/${year}/${season}`
         );
         const uniqueAnime = [];
         const seenIds = new Set();
