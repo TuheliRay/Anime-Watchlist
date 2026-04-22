@@ -25,7 +25,7 @@ export interface PrefillData{
 export interface AnimeContextType{
     personalList : PersonalList;
     addAnimeToList : (anime : Anime) => void;
-    removeAnimeFromList : (status : string , id : number | string) => void;
+    removeAnimeFromList : (status : AnimeStatus , id : number | string) => void;
     prefillData: PrefillData | null;
     setPrefillData: React.Dispatch<React.SetStateAction<PrefillData | null>>;
 }

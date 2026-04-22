@@ -2,14 +2,14 @@ import { useContext } from "react";
 import AnimeContext from "./AnimeContext";
 
 export default function StatusCards() {
-  const { personalList } = useContext(AnimeContext);
+  const { personalList } = useContext(AnimeContext)!;
 
   const watching = personalList?.Watching?.length || 0;
   const completed = personalList?.Completed?.length || 0;
   const plan = personalList?.["Plan to Watch"]?.length || 0;
   const total = watching + completed + plan;
 
-  const card = (label, count, accent) => (
+  const card = (label: string, count: number, accent: string) => (
     <div className="min-w-[160px] flex-1 bg-[#0f1724] border border-gray-700 rounded-xl p-3">
       <div className="flex items-center justify-between">
         <div className="text-sm text-gray-300">{label}</div>

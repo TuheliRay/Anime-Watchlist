@@ -4,10 +4,10 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { EllipsisVertical as EllipsisVerticalIcon } from "lucide-react";
 import type { Anime, AnimeStatus } from "../types";
 
-export default function PersonalLists({ref}) {
+export default function PersonalLists({ ref }) {
   const { personalList, removeAnimeFromList } = useContext(AnimeContext);
 
-  const renderList = (list : Anime[], status : AnimeStatus) => {
+  const renderList = (list: Anime[], status: AnimeStatus) => {
     if (!list || list.length === 0) {
       return <p className="text-gray-500 m-4">No anime in this list yet.</p>;
     }

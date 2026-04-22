@@ -1,5 +1,5 @@
-import  { useState } from "react";
-import { useContext , useEffect } from "react";
+import { useState } from "react";
+import { useContext, useEffect } from "react";
 import AnimeContext from "./AnimeContext";
 import type { AnimeStatus } from "../types";
 
@@ -8,7 +8,7 @@ export default function AddAnimeForm() {
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
   const [status, setStatus] = useState<AnimeStatus>("Watching");
-  
+
   useEffect(() => {
     if (prefillData) {
       setTitle(prefillData.title || "");
@@ -28,7 +28,7 @@ export default function AddAnimeForm() {
       genre: genre.trim(),
       status,
     });
-  
+
 
     // clear form & prefill
     setTitle("");
@@ -79,7 +79,7 @@ export default function AddAnimeForm() {
           </div>
           <div className="md:col-span-2 flex items-end">
             <button
-              type="submit" 
+              type="submit"
               className="w-full h-10 rounded-lg font-semibold bg-gradient-to-r from-pink-500 to-purple-500 shadow hover:opacity-90 transition"
             >
               Add Anime

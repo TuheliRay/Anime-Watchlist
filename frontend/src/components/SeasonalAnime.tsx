@@ -2,9 +2,9 @@ import { useEffect, useState, useContext } from "react";
 import { Check as CheckIcon } from "lucide-react";
 import AnimeContext from "./AnimeContext";
 import axios from "axios";
-import type { Anime , Scroll } from "../types";
+import type { Anime, Scroll } from "../types";
 
-export default function SeasonalAnime({scrollToForm} : Scroll) {
+export default function SeasonalAnime({ scrollToForm }: Scroll) {
   const { setPrefillData, personalList } = useContext(AnimeContext)!;
 
   const [animeList, setAnimeList] = useState([]);
@@ -27,7 +27,7 @@ export default function SeasonalAnime({scrollToForm} : Scroll) {
 
   useEffect(() => {
     const { season, year } = getCurrentSeason();
-    setSeasonInfo({ season, year});
+    setSeasonInfo({ season, year });
 
     const fetchSeasonalAnime = async () => {
       try {
@@ -62,7 +62,7 @@ export default function SeasonalAnime({scrollToForm} : Scroll) {
     );
   }
 
-  const isAnimeInList = (id : number | string) => {
+  const isAnimeInList = (id: number | string) => {
     return (
       personalList.Watching.some((a) => a.mal_id === id) ||
       personalList.Completed.some((a) => a.mal_id === id) ||
@@ -121,11 +121,10 @@ export default function SeasonalAnime({scrollToForm} : Scroll) {
                       }
                     }}
                     disabled={alreadyAdded}
-                    className={`mt-3 w-full text-xs font-bold py-2 rounded-md transition ${
-                      alreadyAdded
+                    className={`mt-3 w-full text-xs font-bold py-2 rounded-md transition ${alreadyAdded
                         ? "bg-green-600 hover:bg-green-700 text-white"
                         : "bg-[#fe3561] text-white"
-                    }`}
+                      }`}
                   >
                     {alreadyAdded ? (
                       <>
