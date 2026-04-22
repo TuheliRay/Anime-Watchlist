@@ -28,7 +28,7 @@ export default function Auth() {
           password,
         });
         if (error) throw error;
-        
+
         if (data?.user?.identities?.length === 0) {
           setError("An account with this email already exists. Please sign in.");
           return;
@@ -42,6 +42,11 @@ export default function Auth() {
       setLoading(false);
     }
   };
+  const onToggle = () => {
+    setIsLogin(!isLogin);
+    setError(null);
+    setMessage(null);
+  }
 
   return (
     <div className="flex items-center justify-center min-h-[60vh] px-4">
@@ -49,7 +54,7 @@ export default function Auth() {
         <h2 className="text-3xl font-extrabold text-center text-pink-400 mb-6 drop-shadow-sm">
           {isLogin ? "Welcome Back" : "Join the Watchlist"}
         </h2>
-        
+
         {error && (
           <div className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg mb-4 text-sm">
             {error}
@@ -70,7 +75,7 @@ export default function Auth() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="you@example.com"
+              placeholder="Enter your email"
               className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition"
             />
           </div>
@@ -81,7 +86,7 @@ export default function Auth() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="••••••••"
+              placeholder="Enter your password"
               className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition"
             />
           </div>
@@ -98,7 +103,7 @@ export default function Auth() {
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
           <button
             type="button"
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={onToggle}
             className="text-pink-400 font-semibold hover:text-pink-300 transition underline"
           >
             {isLogin ? "Sign Up" : "Sign In"}
