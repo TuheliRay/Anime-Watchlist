@@ -4,26 +4,23 @@ A modern web application for tracking and managing your anime watchlist. Built w
 
 ## Features
 
-- 📺 **Track Anime**: Keep track of anime you want to watch, are currently watching, or have completed
-- ⭐ **Rate & Review**: Rate anime and add personal reviews
-- 🔍 **Search & Filter**: Easily find anime in your watchlist with search and filtering capabilities
-- 📊 **Statistics**: View your watching statistics and progress
-- 🔐 **User Authentication**: Secure login and account management via Supabase
-- 📱 **Responsive Design**: Beautiful, mobile-friendly interface built with Tailwind CSS
-- 🎨 **Modern UI**: Clean and intuitive user experience with Headless UI components
+-  **Track Anime**: Keep track of anime you want to watch, are currently watching, or have completed
+-  **User Authentication**: Secure login and account management via Supabase
+-  **Responsive Design**: Beautiful, mobile-friendly interface built with Tailwind CSS
+-  **Modern UI**: Clean and intuitive user experience with Headless UI components
 
 ## Tech Stack
 
 ### Frontend
-- **React** 19.2.4 - UI library
-- **TypeScript** 6.0.2 - Type-safe JavaScript
-- **Vite** 8.0.4 - Lightning-fast build tool
-- **Tailwind CSS** 4.2.2 - Utility-first CSS framework
-- **React Router** 7.14.2 - Client-side routing
-- **Axios** 1.15.1 - HTTP client
-- **Supabase JS** 2.104.0 - Backend client
-- **Headless UI** 2.2.10 - Unstyled UI components
-- **Lucide React** 1.8.0 - Icon library
+- **React** - UI library
+- **TypeScript** - Type-safe JavaScript
+- **Vite** - Lightning-fast build tool
+- **Tailwind CSS** - Utility-first CSS framework
+- **React Router** - Client-side routing
+- **Axios** - HTTP client
+- **Supabase JS** - Backend client
+- **Headless UI** - Unstyled UI components
+- **Lucide React** - Icon library
 
 ### Backend
 - Node.js / TypeScript - Server runtime and language
@@ -67,21 +64,13 @@ Anime-Watchlist/
    - Add your Supabase credentials:
      ```
      VITE_SUPABASE_URL=your_supabase_url
-     VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+     VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
      ```
 
 4. **Start the development server**
    ```bash
    npm run dev
    ```
-   The application will be available at `http://localhost:5173`
-
-### Building for Production
-
-```bash
-npm run build
-npm run preview
-```
 
 ## Available Scripts
 
@@ -94,12 +83,6 @@ npm run preview
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## License
 
