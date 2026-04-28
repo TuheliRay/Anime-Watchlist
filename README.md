@@ -19,7 +19,6 @@ A modern web application for tracking and managing your anime watchlist. Built w
 - **React Router** - Client-side routing
 - **Axios** - HTTP client
 - **Supabase JS** - Backend client
-- **Headless UI** - Unstyled UI components
 - **Lucide React** - Icon library
 
 ### Backend
