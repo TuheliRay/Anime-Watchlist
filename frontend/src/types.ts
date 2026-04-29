@@ -1,35 +1,4 @@
-export type AnimeStatus = "Watching" | "Completed" | "Plan to Watch";
-
-export interface Anime {
-    id : number | string;
-    mal_id? : number;
-    title : string;
-    genre : string;
-    status : AnimeStatus;
-    addedAt? : string;
-}
-   
-export interface PersonalList {
-    Watching : Anime[];
-    Completed : Anime[];
-    "Plan to Watch" : Anime[];
-}
-
-export interface PrefillData{
-    mal_id? : number;
-    title : string;
-    genre : string;
-    status : AnimeStatus;
-}
-
-export interface AnimeContextType{
-    personalList : PersonalList;
-    addAnimeToList : (anime : Anime) => void;
-    removeAnimeFromList : (status : AnimeStatus , id : number | string) => void;
-    prefillData: PrefillData | null;
-    setPrefillData: React.Dispatch<React.SetStateAction<PrefillData | null>>;
-}
-
-export interface Scroll{
-    scrollToForm : () => void;
-}
+// Re-export everything from the types folder.
+// This file exists purely for backward compatibility with existing imports
+// that reference "../types" or "./types" — all types now live in src/types/.
+export * from './types/index';

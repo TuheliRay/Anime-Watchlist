@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import AnimeContext from "./AnimeContext";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
-import { EllipsisVertical as EllipsisVerticalIcon } from "lucide-react";
+import { EllipsisVertical as EllipsisVerticalIcon, Bell } from "lucide-react";
 import type { Anime, AnimeStatus } from "../types";
 
 export default function PersonalLists({ ref }) {
@@ -11,6 +11,9 @@ export default function PersonalLists({ ref }) {
     if (!list || list.length === 0) {
       return <p className="text-gray-500 m-4">No anime in this list yet.</p>;
     }
+
+    const isWatching = status === "Watching";
+
     return (
       <div className="flex flex-col gap-3" ref={ref}>
         {list.map((anime) => (
@@ -24,6 +27,17 @@ export default function PersonalLists({ ref }) {
                 <p className="text-sm text-gray-400">{anime.genre}</p>
               )}
             </div>
+
+            {/* Bell icon — only for Watching */}
+            {isWatching && (
+              <button
+                title="Notify me for new episodes"
+                className="p-1.5 rounded-full hover:bg-[#fe3561]/15 text-gray-400 hover:text-[#fe3561] transition mr-1 cursor-pointer"
+                aria-label="Enable notifications for this anime"
+              >
+                <Bell className="h-4 w-4" />
+              </button>
+            )}
 
             {/* 3-dot menu */}
             <Menu as="div" className="relative inline-block text-left">
