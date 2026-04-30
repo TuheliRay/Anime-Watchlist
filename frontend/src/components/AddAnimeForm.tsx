@@ -22,7 +22,7 @@ export default function AddAnimeForm() {
     if (!title.trim()) return;
 
     addAnimeToList({
-      id: prefillData?.mal_id || Date.now(),
+      id: prefillData?.mal_id,
       mal_id: prefillData?.mal_id,
       title: title.trim(),
       genre: genre.trim(),
@@ -51,6 +51,7 @@ export default function AddAnimeForm() {
             <label className="block text-sm text-gray-300 mb-1">Title</label>
             <input
               value={title}
+              readOnly
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g., Attack on Titan"
               className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:outline-none transition"
@@ -60,6 +61,7 @@ export default function AddAnimeForm() {
             <label className="block text-sm text-gray-300 mb-1">Genre</label>
             <input
               value={genre}
+              readOnly
               onChange={(e) => setGenre(e.target.value)}
               placeholder="e.g., Action Heavy"
               className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:outline-none transition"
