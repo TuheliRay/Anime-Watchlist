@@ -9,7 +9,7 @@ export const animeService = {
   async getUserWatchlist(userId: string) {
     const { data, error } = await supabase
       .from('user_anime')
-      .select('*')
+      .select('*, anime(title, genre)')
       .eq('user_id', userId);
       
     if (error) throw error;
@@ -27,7 +27,8 @@ export const animeService = {
       .from('anime')
       .upsert({ 
         mal_id: animeData.mal_id, 
-        title: animeData.title
+        title: animeData.title,
+        genre: animeData.genre
       }, { onConflict: 'mal_id' });
 
     if (animeError) throw animeError;
@@ -59,20 +60,7 @@ export const animeService = {
     return true;
   },
 
-  //4. UPDATE STATUS
-  // when a user changes anime status
-   
-  async updateStatus(userId: string, animeId: number, newStatus: string) {
-    const { error } = await supabase
-      .from('user_anime')
-      .update({ status: newStatus })
-      .match({ user_id: userId, anime_id: animeId });
-      
-    if (error) throw error;
-    return true;
-  },
-
-  //5. TOGGLE PUSH NOTIFICATIONS
+  //4. TOGGLE PUSH NOTIFICATIONS
   // when the user clicks the bell icon/notification button.
   
   async toggleNotifications(userId: string, animeId: number, isEnabled: boolean) {

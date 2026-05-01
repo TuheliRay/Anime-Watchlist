@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useContext, useEffect } from "react";
 import AnimeContext from "./AnimeContext";
 import type { AnimeStatus } from "../types";
+import { supabase } from "../utils/supabase";
+import { animeService } from "../services/animeService";
 
 export default function AddAnimeForm() {
   const { addAnimeToList, prefillData, setPrefillData } = useContext(AnimeContext);
@@ -17,18 +19,32 @@ export default function AddAnimeForm() {
     }
   }, [prefillData]);
 
-  function handleAddAnime(e) {
+  async function handleAddAnime(e) {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!title.trim() || !prefillData?.mal_id) return;
 
+    // Instantly update the UI Context
     addAnimeToList({
-      id: prefillData?.mal_id,
       mal_id: prefillData?.mal_id,
       title: title.trim(),
       genre: genre.trim(),
       status,
     });
 
+    // store anime data in database
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      try {
+        const animeData = {
+          mal_id: prefillData?.mal_id,
+          title: title.trim(),
+          genre: genre.trim(),
+        };
+        await animeService.addAnime(session.user.id, animeData, status);
+      } catch (error) {
+        console.error("Failed to save anime to Supabase:", error);
+      }
+    }
 
     // clear form & prefill
     setTitle("");

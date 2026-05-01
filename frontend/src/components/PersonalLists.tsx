@@ -18,7 +18,7 @@ export default function PersonalLists({ ref }) {
       <div className="flex flex-col gap-3" ref={ref}>
         {list.map((anime) => (
           <div
-            key={anime.mal_id || anime.id}
+            key={anime.mal_id}
             className="bg-[#2b3245] p-4 rounded-lg flex justify-between items-center shadow-md hover:shadow-lg transition"
           >
             <div className="flex flex-col items-center justify-center text-center flex-1">
@@ -47,12 +47,12 @@ export default function PersonalLists({ ref }) {
 
               <MenuItems
                 transition
-                className="absolute right-0 mt-2 w-28 origin-top-right rounded-md bg-[#1f2937] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in z-10"
+                className="absolute right-0 mt-2 w-28 origin-top-right rounded-md bg-[#1f2937] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-leave:duration-75 data-enter:ease-out data-leave:ease-in z-10"
               >
                 <MenuItem>
                   <button
-                    onClick={() => removeAnimeFromList(status, anime.mal_id || anime.id)}
-                    className="group flex w-full items-center rounded-md px-2 py-2 text-sm text-red-400 data-[focus]:bg-red-600 data-[focus]:text-white cursor-pointer"
+                    onClick={() => removeAnimeFromList(status, anime.mal_id)}
+                    className="group flex w-full items-center rounded-md px-2 py-2 text-sm text-red-400 data-focus:bg-red-600 data-focus:text-white cursor-pointer"
                   >
                     Delete
                   </button>
@@ -67,7 +67,7 @@ export default function PersonalLists({ ref }) {
 
   return (
     <div className="bg-[#0f1624] min-h-screen p-6 text-gray-300">
-      <h2 className="text-4xl font-extrabold m-12 text-center bg-gradient-to-r from-purple-700 via-pink-400 to-red-400 bg-clip-text text-transparent">
+      <h2 className="text-4xl font-extrabold m-12 text-center bg-linear-to-r from-purple-700 via-pink-400 to-red-400 bg-clip-text text-transparent">
         Your Personal Lists
       </h2>
 
