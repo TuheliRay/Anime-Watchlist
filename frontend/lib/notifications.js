@@ -1,27 +1,36 @@
 import { getToken } from "firebase/messaging";
 import { messaging } from "./firebase";
+import { animeService } from "../src/services/animeService";
+import { getDeviceId } from "../src/utils/deviceID";
 
-export const requestNotificationPermission = async () => {
+const cache_key = (userId) => `fcm_token_${userId}`;
+
+export const requestNotificationPermission = async (userId) => {
     try {
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-            console.log("Notification permission granted.");
-            //if permission granted , generate token
-            const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY;
-            const currentToken = await getToken(messaging, { vapidKey });
-
-            if (currentToken) {
-                console.log("FCM Token:", currentToken);
-                //Send this token to your backend/database to save it
-                return currentToken;
-            } else {
-                console.log("No registration token available. Request permission to generate one.");
+        if (Notification.permission == "default") {
+            const permission = await Notification.requestPermission();
+            if (permission === 'denied') {
+                alert("Notification permission denied")
+                return null;
             }
-        } else {
-            console.warn("Notification permission denied.");
         }
-    } catch (error) {
+        const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY;
+        const currentToken = await getToken(messaging, { vapidKey });
+
+        if(!currentToken) return null;
+     
+        const key = cache_key(userId);
+        const cached = localStorage.getItem(key);
+        if(cached === currentToken)
+            return currentToken;//Send this token to backend/database to save it
+        //if token changed
+        const deviceId = getDeviceId();
+        await animeService.pushNotification(userId, currentToken, deviceId)
+        //update local storage
+        localStorage.setItem(key, currentToken);
+        return currentToken;
+    } catch(error) {
         console.error("An error occurred while retrieving token:", error);
+        return null;
     }
-    return null;
 };

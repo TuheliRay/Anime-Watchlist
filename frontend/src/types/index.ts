@@ -6,6 +6,7 @@ export interface Anime {
     genre: string;
     status: AnimeStatus;
     addedAt?: string;
+    notify_enabled?: boolean;
 }
 
 export interface PersonalList {
@@ -25,6 +26,7 @@ export interface AnimeContextType {
     personalList: PersonalList;
     addAnimeToList: (anime: Anime) => void;
     removeAnimeFromList: (status: AnimeStatus, id: number) => void;
+    toggleNotificationState: (mal_id: number) => void;
     prefillData: PrefillData | null;
     setPrefillData: React.Dispatch<React.SetStateAction<PrefillData | null>>;
 }

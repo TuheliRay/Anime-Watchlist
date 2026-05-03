@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import AnimeContext from "./AnimeContext";
+import AuthContext from "./AuthContext";
 import type { AnimeStatus } from "../types";
-import { supabase } from "../utils/supabase";
 import { animeService } from "../services/animeService";
 
 export default function AddAnimeForm() {
+  const session = useContext(AuthContext);
   const { addAnimeToList, prefillData, setPrefillData } = useContext(AnimeContext);
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
@@ -29,10 +29,10 @@ export default function AddAnimeForm() {
       title: title.trim(),
       genre: genre.trim(),
       status,
+      notify_enabled: false,
     });
 
     // store anime data in database
-    const { data: { session } } = await supabase.auth.getSession();
     if (session) {
       try {
         const animeData = {

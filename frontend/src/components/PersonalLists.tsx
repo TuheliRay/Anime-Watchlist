@@ -1,11 +1,15 @@
 import { useContext } from "react";
 import AnimeContext from "./AnimeContext";
+import AuthContext from "./AuthContext"
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { EllipsisVertical as EllipsisVerticalIcon, Bell } from "lucide-react";
 import type { Anime, AnimeStatus } from "../types";
+import { animeService } from "../services/animeService";
+import {requestNotificationPermission} from "../../lib/notifications"
 
 export default function PersonalLists({ ref }) {
-  const { personalList, removeAnimeFromList } = useContext(AnimeContext);
+  const { personalList, removeAnimeFromList , toggleNotificationState} = useContext(AnimeContext);
+  const session = useContext(AuthContext);
 
   const renderList = (list: Anime[], status: AnimeStatus) => {
     if (!list || list.length === 0) {
@@ -32,10 +36,29 @@ export default function PersonalLists({ ref }) {
             {isWatching && (
               <button
                 title="Notify me for new episodes"
-                className="p-1.5 rounded-full hover:bg-[#fe3561]/15 text-gray-400 hover:text-[#fe3561] transition mr-1 cursor-pointer"
+                className={`p-1.5 rounded-full transition mr-1 cursor-pointer ${
+                  anime.notify_enabled 
+                    ? 'bg-[#fe3561]/15 text-[#fe3561]' 
+                    : 'text-gray-400 hover:bg-[#fe3561]/15 hover:text-[#fe3561]'
+                }`}
                 aria-label="Enable notifications for this anime"
+                onClick={async () => {
+                  if (!session) {
+                    console.error("No active session");
+                    return;
+                  }
+                  const token = await requestNotificationPermission(session.user.id);      
+                  if (!token) return;
+                  toggleNotificationState(anime.mal_id);
+                  try {
+                    await animeService.toggleNotifications(session.user.id, anime.mal_id, !anime.notify_enabled);
+                  } catch (error) {
+                    toggleNotificationState(anime.mal_id);
+                    console.error("Failed to toggle notifications", error);
+                  }
+                }}
               >
-                <Bell className="h-4 w-4" />
+                <Bell className={`h-4 w-4 ${anime.notify_enabled ? 'fill-[#fe3561]' : ''}`} />
               </button>
             )}
 

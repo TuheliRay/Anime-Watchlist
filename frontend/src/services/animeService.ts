@@ -71,5 +71,16 @@ export const animeService = {
       
     if (error) throw error;
     return true;
-  }
+  } , 
+  //5. Push device token to DB
+  async pushNotification(userId: string, token: string , deviceId: string) {
+    const { error } = await supabase.from('push_subscription')
+      .upsert({
+        user_id: userId,
+        fcm_token: token,
+        device_id: deviceId
+      }, { onConflict: 'user_id, device_id' })
+    if (error) throw error;
+    return true;
+  },
 };

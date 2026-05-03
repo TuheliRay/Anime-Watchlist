@@ -5,6 +5,7 @@ import SeasonalAnime from "./components/SeasonalAnime";
 import AddAnimeForm from "./components/AddAnimeForm";
 import StatusCards from "./components/StatusCards";
 import AnimeContext from "./components/AnimeContext";
+import AuthContext from "./components/AuthContext";
 import Auth from "./components/Auth";
 import { supabase } from "./utils/supabase";
 import type { AnimeStatus, Anime, PersonalList, PrefillData } from "./types";
@@ -52,7 +53,7 @@ export default function App() {
       try {
         const data = await animeService.getUserWatchlist(session.user.id);
         const newList: PersonalList = { Watching: [], Completed: [], "Plan to Watch": [] };
-
+        //go through the data if it exists
         data?.forEach((row: any) => {
           const status = row.status as AnimeStatus;
           if (newList[status]) {
@@ -62,6 +63,7 @@ export default function App() {
               genre: row.anime?.genre || "",
               status,
               addedAt: row.created_at,
+              notify_enabled: row.notify_enabled,
             });
           }
         });
@@ -107,6 +109,17 @@ export default function App() {
       }
     }
   };
+  //toggle notification
+  const toggleNotificationState = (mal_id: number) => {
+    setPersonalList((prev) => ({
+      ...prev,
+      Watching: prev.Watching.map((anime) =>
+        anime.mal_id === mal_id
+          ? { ...anime, notify_enabled: !anime.notify_enabled }
+          : anime
+      ),
+    }));
+  };
 
   if (!session) {
     return (
@@ -118,22 +131,24 @@ export default function App() {
   }
 
   return (
-    <AnimeContext.Provider value={{ personalList, addAnimeToList, removeAnimeFromList, prefillData, setPrefillData }}>
-      <div className="min-h-screen bg-[#0b1220] text-white">
-        <div className="flex justify-end p-4 max-w-6xl mx-auto">
-          <button
-            onClick={() => supabase.auth.signOut()}
-            className="text-sm bg-gray-800 border border-gray-700 hover:bg-gray-700 px-4 py-2 rounded-lg text-gray-300 transition"
-          >
-            Sign Out
-          </button>
+    <AuthContext.Provider value={session}>
+      <AnimeContext.Provider value={{ personalList, addAnimeToList, removeAnimeFromList,toggleNotificationState, prefillData, setPrefillData }}>
+        <div className="min-h-screen bg-[#0b1220] text-white">
+          <div className="flex justify-end p-4 max-w-6xl mx-auto">
+            <button
+              onClick={() => supabase.auth.signOut()}
+              className="text-sm bg-gray-800 border border-gray-700 hover:bg-gray-700 px-4 py-2 rounded-lg text-gray-300 transition"
+            >
+              Sign Out
+            </button>
+          </div>
+          <Header ref={headerRef} />
+          <AddAnimeForm />
+          <StatusCards />
+          <SeasonalAnime scrollToForm={scrollToForm} />
+          <PersonalLists ref={listsRef} />
         </div>
-        <Header ref={headerRef} />
-        <AddAnimeForm />
-        <StatusCards />
-        <SeasonalAnime scrollToForm={scrollToForm} />
-        <PersonalLists ref={listsRef} />
-      </div>
-    </AnimeContext.Provider>
+      </AnimeContext.Provider>
+    </AuthContext.Provider>
   );
 }
