@@ -1,4 +1,4 @@
-import type { RowProps } from "../../types/animeDetail";
+import type { RowProps } from "../../types/animeModal";
 
 export default function Row({ label, value, valueClass }: RowProps) {
   return (

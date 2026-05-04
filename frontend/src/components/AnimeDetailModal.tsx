@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { X as XIcon } from "lucide-react";
-import type { AnimeDetailModalProps, DetailState } from "../types/animeDetail";
+import type { AnimeDetailModalProps, DetailState } from "../types/animeModal";
 import AnimeDetailContent from "./modalHelpers/AnimeDetailContent";
 
 export default function AnimeDetailModal({ malId, title, onClose }: AnimeDetailModalProps) {

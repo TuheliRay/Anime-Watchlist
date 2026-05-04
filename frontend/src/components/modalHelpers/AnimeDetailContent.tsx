@@ -1,4 +1,4 @@
-import type { AnimeDetailContentProps } from "../../types/animeDetail";
+import type { AnimeDetailContentProps } from "../../types/animeModal";
 import Row from "./Row";
 
 export default function AnimeDetailContent({ loading, error, detail }: AnimeDetailContentProps) {
