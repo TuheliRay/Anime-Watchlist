@@ -1,0 +1,29 @@
+{
+  "name": "updated-anime-watchlist",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/TuheliRay/Anime-Watchlist#readme",
+  "bugs": {
+    "url": "https://github.com/TuheliRay/Anime-Watchlist/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TuheliRay/Anime-Watchlist.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.104.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "firebase-admin": "^13.8.0",
+    "node-cron": "^4.2.1"
+  }
+}
