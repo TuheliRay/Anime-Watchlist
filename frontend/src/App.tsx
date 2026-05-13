@@ -11,6 +11,7 @@ import { supabase } from "./utils/supabase";
 import type { AnimeStatus, Anime, PersonalList, PrefillData } from "./types";
 import type { Session } from "@supabase/supabase-js";
 import { animeService } from "./services/animeService";
+import { setupForegroundMessageListener } from "../lib/notifications";
 
 export default function App() {
   const headerRef = useRef<HTMLElement>(null);
@@ -30,6 +31,18 @@ export default function App() {
     });
 
     return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    // Setup Firebase foreground message listener
+    const unsubscribe = setupForegroundMessageListener();
+
+    // Cleanup the listener when the component unmounts
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, []);
 
   const scrollToForm = () => {
@@ -132,7 +145,7 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={session}>
-      <AnimeContext.Provider value={{ personalList, addAnimeToList, removeAnimeFromList,toggleNotificationState, prefillData, setPrefillData }}>
+      <AnimeContext.Provider value={{ personalList, addAnimeToList, removeAnimeFromList, toggleNotificationState, prefillData, setPrefillData }}>
         <div className="min-h-screen bg-[#0b1220] text-white">
           <div className="flex justify-end p-4 max-w-6xl mx-auto">
             <button
