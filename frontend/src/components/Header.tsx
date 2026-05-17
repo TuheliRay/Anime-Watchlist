@@ -1,4 +1,10 @@
-export default function Header({ ref }) {
+import type { Ref } from "react";
+
+type HeaderProps = {
+  ref?: Ref<HTMLElement>;
+};
+
+export default function Header({ ref }: HeaderProps) {
   return (
     <main ref={ref} className="max-w-6xl mx-auto py-8 px-6">
       <section className="text-center py-6">

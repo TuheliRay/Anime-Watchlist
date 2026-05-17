@@ -1,12 +1,12 @@
-import { useState, useContext, useEffect } from "react";
-import AnimeContext from "./AnimeContext";
+import { useState, useContext, useEffect, type FormEvent } from "react";
+import { useAnimeContext } from "./AnimeContext";
 import AuthContext from "./AuthContext";
 import type { AnimeStatus } from "../types";
 import { animeService } from "../services/animeService";
 
 export default function AddAnimeForm() {
   const session = useContext(AuthContext);
-  const { addAnimeToList, prefillData, setPrefillData } = useContext(AnimeContext);
+  const { addAnimeToList, prefillData, setPrefillData } = useAnimeContext();
   const [title, setTitle] = useState("");
   const [genre, setGenre] = useState("");
   const [status, setStatus] = useState<AnimeStatus>("Watching");
@@ -19,7 +19,7 @@ export default function AddAnimeForm() {
     }
   }, [prefillData]);
 
-  async function handleAddAnime(e) {
+  async function handleAddAnime(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!title.trim() || !prefillData?.mal_id) return;
 

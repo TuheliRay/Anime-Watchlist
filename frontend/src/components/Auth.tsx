@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { supabase } from "../utils/supabase";
 
 export default function Auth() {
@@ -9,7 +9,7 @@ export default function Auth() {
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -37,7 +37,7 @@ export default function Auth() {
         setMessage("Success! Please check your email for a confirmation link.");
       }
     } catch (err) {
-      setError(err.message || "An error occurred");
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }

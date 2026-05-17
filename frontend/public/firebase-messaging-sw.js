@@ -1,7 +1,6 @@
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
 
-// Firebase config 
 const firebaseConfig = {
   apiKey: "AIzaSyBvag9fAtQApc_yDe-g9axs-w4RV8XJJ2w",
   authDomain: "anime-b0a68.firebaseapp.com",
@@ -18,40 +17,41 @@ firebase.initializeApp(firebaseConfig);
 // Retrieve an instance of Firebase Messaging so that it can handle background messages.
 const messaging = firebase.messaging();
 
-// Handle background messages — since we send data-only messages from the backend,
-// this handler will always fire (FCM only auto-displays when a "notification" key exists).
+// Optional: Handle background messages to customize the notification
 messaging.onBackgroundMessage((payload) => {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
 
-  const data = payload.data || {};
-  const notificationTitle = data.title || 'New Anime Update';
-  const notificationOptions = {
-    body: data.body || 'An anime you are tracking has a new episode!',
-    icon: '/icons.svg',
-    ...(data.image_url && { image: data.image_url }),
-    data: data, // Accessible when the user clicks the notification
-  };
+  // If you send a "notification" payload, Firebase automatically shows a notification.
+  // If you only send a "data" payload, you must construct the notification manually here.
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  if (payload.data && !payload.notification) {
+    const notificationTitle = payload.data.title || 'New Anime Update';
+    const notificationOptions = {
+      body: payload.data.body || 'An anime you are tracking has a new episode!',
+      icon: '/icons.svg',
+      data: payload.data, // This data is accessible when the user clicks the notification
+    };
+
+    self.registration.showNotification(notificationTitle, notificationOptions);
+  }
 });
 
-// Handle notification clicks — navigate to the specific anime if possible
+// Handle notification clicks
 self.addEventListener('notificationclick', (event) => {
   console.log('[firebase-messaging-sw.js] Notification click received.');
 
   event.notification.close();
 
-  // Use the anime-specific URL from the data payload, or fall back to home
-  const clickPath = event.notification.data?.url || '/';
-  const urlToOpen = new URL(clickPath, self.location.origin).href;
+  // Define the URL to open when the user clicks the notification
+  const clickUrl = event.notification.data?.url || '/';
+  const urlToOpen = new URL(clickUrl, self.location.origin).href;
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
-      // If a window is already open, focus it and navigate to the anime
+      // If a window is already open, focus it
       for (let i = 0; i < windowClients.length; i++) {
         const client = windowClients[i];
-        if ('focus' in client) {
-          client.navigate(urlToOpen);
+        if (client.url === urlToOpen && 'focus' in client) {
           return client.focus();
         }
       }

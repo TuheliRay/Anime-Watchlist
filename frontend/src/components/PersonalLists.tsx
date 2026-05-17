@@ -1,14 +1,18 @@
-import { useContext } from "react";
-import AnimeContext from "./AnimeContext";
+import { useContext, type Ref } from "react";
+import { useAnimeContext } from "./AnimeContext";
 import AuthContext from "./AuthContext"
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { EllipsisVertical as EllipsisVerticalIcon, Bell } from "lucide-react";
 import type { Anime, AnimeStatus } from "../types";
 import { animeService } from "../services/animeService";
-import {requestNotificationPermission} from "../../lib/notifications"
+import { requestNotificationPermission } from "../../lib/notifications"
 
-export default function PersonalLists({ ref }) {
-  const { personalList, removeAnimeFromList , toggleNotificationState} = useContext(AnimeContext);
+type PersonalListsProps = {
+  ref?: Ref<HTMLDivElement>;
+};
+
+export default function PersonalLists({ ref }: PersonalListsProps) {
+  const { personalList, removeAnimeFromList, toggleNotificationState } = useAnimeContext();
   const session = useContext(AuthContext);
 
   const renderList = (list: Anime[], status: AnimeStatus) => {
@@ -36,18 +40,17 @@ export default function PersonalLists({ ref }) {
             {isWatching && (
               <button
                 title="Notify me for new episodes"
-                className={`p-1.5 rounded-full transition mr-1 cursor-pointer ${
-                  anime.notify_enabled 
-                    ? 'bg-[#fe3561]/15 text-[#fe3561]' 
+                className={`p-1.5 rounded-full transition mr-1 cursor-pointer ${anime.notify_enabled
+                    ? 'bg-[#fe3561]/15 text-[#fe3561]'
                     : 'text-gray-400 hover:bg-[#fe3561]/15 hover:text-[#fe3561]'
-                }`}
+                  }`}
                 aria-label="Enable notifications for this anime"
                 onClick={async () => {
                   if (!session) {
                     console.error("No active session");
                     return;
                   }
-                  const token = await requestNotificationPermission(session.user.id);      
+                  const token = await requestNotificationPermission(session.user.id);
                   if (!token) return;
                   toggleNotificationState(anime.mal_id);
                   try {

@@ -15,7 +15,7 @@ import { setupForegroundMessageListener } from "../lib/notifications";
 
 export default function App() {
   const headerRef = useRef<HTMLElement>(null);
-  const listsRef = useRef<HTMLElement>(null);
+  const listsRef = useRef<HTMLDivElement>(null);
 
   const [session, setSession] = useState<Session | null>(null);
 
