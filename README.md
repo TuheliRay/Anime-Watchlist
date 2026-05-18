@@ -23,17 +23,17 @@
 
 ---
 
-## 🌟 About The Project
+##  About The Project
 
 **Anime Watchlist** is designed for anime enthusiasts who want a reliable and intuitive way to manage their currently watching, completed, and planned anime. Beyond just keeping lists, this application automatically fetches real-time broadcast schedules and delivers push notifications right to your device before an episode airs, so you never miss a release.
 
-### ✨ Key Features
+###  Key Features
 
-- 📚 **Personalized Tracking**: Organize your anime into categorized lists ("Watching", "Completed", "Plan to Watch").
-- 🔔 **Smart Push Notifications**: Automated alerts sent to your device via Firebase Cloud Messaging for anime episodes airing within the next 3 hours.
-- 🔄 **Auto-Sync Airing Data**: A sophisticated backend cron job keeps the anime release schedules synchronized with the unofficial MyAnimeList API (Jikan API).
-- 🔐 **Secure Authentication**: Robust user sign-up, login, and session management powered by Supabase.
-- 📱 **Responsive & Modern UI**: A clean, accessible, and highly responsive interface built with Tailwind CSS, React, and Headless UI.
+-  **Personalized Tracking**: Organize your anime into categorized lists ("Watching", "Completed", "Plan to Watch").
+-  **Smart Push Notifications**: Automated alerts sent to your device via Firebase Cloud Messaging for anime episodes airing within the next 3 hours.
+-  **Auto-Sync Airing Data**: A sophisticated backend cron job keeps the anime release schedules synchronized with the unofficial MyAnimeList API (Jikan API).
+-  **Secure Authentication**: Robust user sign-up, login, and session management powered by Supabase.
+-  **Responsive & Modern UI**: A clean, accessible, and highly responsive interface built with Tailwind CSS, React, and Headless UI.
 
 ---
 
@@ -137,7 +137,7 @@ You will need the following tools and accounts:
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
