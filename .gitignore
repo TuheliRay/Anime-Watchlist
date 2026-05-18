@@ -1,2 +1,10 @@
 .env
 concepts.txt
+node_modules
+config
+ARCHITECTURE.md
+
+# Firebase Admin service account 
+**/service-key.json
+**/serviceAccountKey.json
+backend/config/
